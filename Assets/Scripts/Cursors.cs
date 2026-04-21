@@ -9,6 +9,7 @@ public class Cursors : MonoBehaviour
     public Sprite cursorBasic;
     public Sprite cursorHand;
     public Image cursorImage;
+    public Vector3 offsetCursor;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,7 @@ public class Cursors : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cursorObject.transform.position = Input.mousePosition;
+        cursorObject.transform.position = Input.mousePosition + offsetCursor;
 
         if(Input.GetMouseButton(1))
         {

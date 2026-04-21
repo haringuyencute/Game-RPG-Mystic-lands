@@ -29,7 +29,7 @@ public class InventoryItems : MonoBehaviour
     public static int cheese = 0;
     public static int meat = 0;
     public static bool key = true;
-    public static int gold = 0;
+    public static int gold = 300;
 
     public static int newIcon = 0;
     public static bool iconUpdate = false;

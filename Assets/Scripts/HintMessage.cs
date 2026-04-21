@@ -67,63 +67,63 @@ public class HintMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
         if (objectType == 2)
         {
-            message.text = InventoryItems.redMushroom.ToString() + " purple mushrooms to be used in potions";
+            message.text = InventoryItems.purpleMusroom.ToString() + " purple mushrooms to be used in potions";
         }
         if (objectType == 3)
         {
-            message.text = InventoryItems.redMushroom.ToString() + " brown mushrooms to be used in potions";
+            message.text = InventoryItems.brownMushroom.ToString() + " brown mushrooms to be used in potions";
         }
         if (objectType == 4)
         {
-            message.text = InventoryItems.redMushroom.ToString() + " blue flowers to be used in potions";
+            message.text = InventoryItems.blueFlower.ToString() + " blue flowers to be used in potions";
         }
         if (objectType == 5)
         {
-            message.text = InventoryItems.blueFlower.ToString() + " red flowers to be used in potions";
+            message.text = InventoryItems.redFlower.ToString() + " red flowers to be used in potions";
         }
         if (objectType == 6)
         {
-            message.text = InventoryItems.blueFlower.ToString() + " roots to be used in potions";
+            message.text = InventoryItems.root.ToString() + " roots to be used in potions";
         }
         if (objectType == 7)
         {
-            message.text = InventoryItems.blueFlower.ToString() + " leaf dew to be used in potions";
+            message.text = InventoryItems.leafDew.ToString() + " leaf dew to be used in potions";
         }
         if (objectType == 8)
         {
-            message.text = InventoryItems.blueFlower.ToString() + " key to open chests";
+            message.text = InventoryItems.key.ToString() + " key to open chests";
         }
         if (objectType == 9)
         {
-            message.text = InventoryItems.blueFlower.ToString() + " dragon eggs to be used in potions";
+            message.text = InventoryItems.dragonEgg.ToString() + " dragon eggs to be used in potions";
         }
         if (objectType == 10)
         {
-            message.text = InventoryItems.blueFlower.ToString() + " blue potion to be used in potions";
+            message.text = InventoryItems.bluePotion.ToString() + " blue potion to be used in potions";
         }
         if (objectType == 11)
         {
-            message.text = InventoryItems.blueFlower.ToString() + " purple potion to be used in potions";
+            message.text = InventoryItems.purplePotion.ToString() + " purple potion to be used in potions";
         }
         if (objectType == 12)
         {
-            message.text = InventoryItems.blueFlower.ToString() + " green potion to be used in potions";
+            message.text = InventoryItems.greenPotion.ToString() + " green potion to be used in potions";
         }
         if (objectType == 13)
         {
-            message.text = InventoryItems.blueFlower.ToString() + " red potion to be used in potions";
+            message.text = InventoryItems.redPotion.ToString() + " red potion to be used in potions";
         }
         if (objectType == 14)
         {
-            message.text = InventoryItems.blueFlower.ToString() + " bread to replenish health";
+            message.text = InventoryItems.bread.ToString() + " bread to replenish health";
         }
         if (objectType == 15)
         {
-            message.text = InventoryItems.blueFlower.ToString() + " cheese to replenish health";
+            message.text = InventoryItems.cheese.ToString() + " cheese to replenish health";
         }
-        if (objectType == 15)
+        if (objectType == 16)
         {
-            message.text = InventoryItems.blueFlower.ToString() + " meat to replenish health";
+            message.text = InventoryItems.meat.ToString() + " meat to replenish health";
         }
     }
 }

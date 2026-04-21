@@ -14,6 +14,6 @@ public class SaveScript : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log("Name = "+pname);
+        //Debug.Log("Name = "+pname);
     }
 }
