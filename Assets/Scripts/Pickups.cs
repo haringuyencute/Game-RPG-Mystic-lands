@@ -10,12 +10,19 @@ public class Pickups : MonoBehaviour
     public bool brownMushroom = false;
     public bool blueFlower = false;
     public bool redFlower = false;
+    public AudioManager audioManager;
+
+    private void Start()
+    {
+        audioManager = FindFirstObjectByType<AudioManager>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
         {
-            if(redMushroom)
+            audioManager.PlaySFX(audioManager.pickupClip);
+            if (redMushroom)
             {
                 if(InventoryItems.redMushroom == 0)
                 {
@@ -26,11 +33,11 @@ public class Pickups : MonoBehaviour
             }
             else if (purpleMushroom)
             {
-                if (InventoryItems.purpleMusroom == 0)
+                if (InventoryItems.purpleMushroom == 0)
                 {
                     DisplayIcons();
                 }
-                InventoryItems.purpleMusroom++;
+                InventoryItems.purpleMushroom++;
                 Destroy(gameObject);
             }
             else if (brownMushroom)

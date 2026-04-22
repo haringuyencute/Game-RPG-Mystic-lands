@@ -8,13 +8,15 @@ public class InventoryItems : MonoBehaviour
     public GameObject inventoryMenu;
     public GameObject openBook;
     public GameObject closedBook;
+    public GameObject potionBook;
 
     public Image[] emptySlots;
     public Sprite[] icons;
     public Sprite emptyIcon;
+    public AudioManager audioManager;
 
     public static int redMushroom = 0;
-    public static int purpleMusroom = 0;
+    public static int purpleMushroom = 0;
     public static int brownMushroom = 0;
     public static int blueFlower = 0;
     public static int redFlower = 0;
@@ -29,11 +31,31 @@ public class InventoryItems : MonoBehaviour
     public static int cheese = 0;
     public static int meat = 0;
     public static bool key = true;
-    public static int gold = 300;
+    public static int gold = 30000;
 
     public static int newIcon = 0;
     public static bool iconUpdate = false;
     private int max;
+    public GameObject theCanvas;
+    [HideInInspector]
+    public string entry;
+    public string[] items;
+    [HideInInspector]
+    public int currentID = 0;
+    [HideInInspector]
+    public int checkAmt = 0;
+    private int maxItem;
+    private int maxEmptySlot;
+
+    public Image[] UISlots;
+    public Sprite[] magicIcons;
+    public Sprite[] spellIcons;
+    public KeyCode[] keyCodes;
+    public bool setMagic = false;
+    public bool setSpell = false;
+    [HideInInspector]
+    public int selected = 0;
+    public int[] magicAttack;
 
     // Start is called before the first frame update
     void Start()
@@ -41,11 +63,14 @@ public class InventoryItems : MonoBehaviour
         inventoryMenu.SetActive(false);
         openBook.SetActive(false);
         closedBook.SetActive(true);
+        potionBook.SetActive(false);
         max = emptySlots.Length;
+        maxItem = items.Length;
+        maxEmptySlot = emptySlots.Length;
 
         // Temp 
         redMushroom = 0;
-        purpleMusroom = 0 ;
+        purpleMushroom = 0 ;
         brownMushroom = 0 ;
         blueFlower = 0 ;
         redFlower = 0 ;
@@ -68,6 +93,68 @@ public class InventoryItems : MonoBehaviour
             }
             StartCoroutine(Reset());
         }
+        if (setMagic)
+        {
+            setMagic = false;
+            for (int i = 0; i < UISlots.Length; i++)
+            {
+                if (Input.GetKeyDown(keyCodes[i]))
+                {
+                    setMagic = false;
+                    UISlots[i].sprite = magicIcons[selected];
+                    magicAttack[i] = selected;
+                    theCanvas.GetComponent<CreatePotion>().Removed(selected);
+                }
+            }
+        }
+        if (setSpell)
+        {
+            setMagic = false;
+            for (int i = 0; i < UISlots.Length; i++)
+            {
+                if (Input.GetKeyDown(keyCodes[i]))
+                {
+                    setSpell = false;
+                    UISlots[i].sprite = spellIcons[selected];
+                    magicAttack[i] = selected + 6;
+                    
+                }
+            }
+        }
+    }
+
+    public void CheckStatics()
+    {
+        for(int i = 0; i < maxItem; i ++)
+        {
+            if(i == currentID)
+            {
+                maxItem = i;
+                entry = items[i];
+                checkAmt = System.Convert.ToInt32(typeof(InventoryItems).GetField(entry).GetValue(null));
+                checkAmt--;
+                typeof(InventoryItems).GetField(entry).SetValue(null,checkAmt);
+                if(checkAmt == 0)
+                {
+                    RemoveIcon(i);
+                }
+            }
+        }
+        maxItem = items.Length;
+    }
+
+    public void RemoveIcon(int iconTyoe)
+    {
+        for(int i = 0; i < maxEmptySlot; i++)
+        {
+            if (emptySlots[i].sprite == icons[iconTyoe])
+            {
+                maxEmptySlot = i;
+                emptySlots[i].sprite = icons[0];
+                emptySlots[i].transform.gameObject.GetComponent<HintMessage>().objectType = 0;
+            }
+        }
+        maxEmptySlot = emptySlots.Length;
     }
 
     public void OpenMenu()
@@ -75,6 +162,7 @@ public class InventoryItems : MonoBehaviour
         inventoryMenu.SetActive(true);
         openBook.SetActive(true);
         closedBook.SetActive(false);
+        audioManager.PlaySFX(audioManager.bookOpenClip);
         Time.timeScale = 0;
     }
     public void CloseMenu()
@@ -84,6 +172,18 @@ public class InventoryItems : MonoBehaviour
         closedBook.SetActive(true);
         Time.timeScale = 1;
     }
+
+    public void OpenPotionBook()
+    {
+        potionBook.SetActive(true);
+    }
+    public void ClosePotionBook()
+    {
+        theCanvas.GetComponent<CreatePotion>().value = 0;
+        theCanvas.GetComponent<CreatePotion>().thisValue = 0;
+        potionBook.SetActive(false);
+    }
+
     IEnumerator Reset()
     {
         yield return new WaitForSeconds(0.1f);

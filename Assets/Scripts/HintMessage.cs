@@ -5,13 +5,22 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 
-public class HintMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class HintMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler , IPointerClickHandler
 {
     public GameObject hintBox;
     public Text message;
     private bool displaying = true;
     private bool overIcon = false;
     public int objectType = 0;
+    public GameObject theCanvas;
+    public Sprite cursorBasic;
+    public Sprite cursorHand;
+    public Image cursorImage;
+    public GameObject inventoryObject;
+    public bool magic = false;
+    public bool spell = false;
+    public bool left = true;
+    public AudioManager audioManager;
 
     private Vector3 screenPoint;
     public void OnPointerEnter(PointerEventData eventData)
@@ -19,8 +28,16 @@ public class HintMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         overIcon = true;
         if(displaying)
         {
+            cursorImage.sprite = cursorHand;
             hintBox.SetActive(true);
-            screenPoint.x = Input.mousePosition.x + 500;
+            if(left == true)
+            {
+                screenPoint.x = Input.mousePosition.x + 500;
+            }
+            else
+            {
+                screenPoint.x = Input.mousePosition.x - 500;
+            }
             screenPoint.y = Input.mousePosition.y;
             screenPoint.z = 1f;
             hintBox.transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
@@ -35,6 +52,7 @@ public class HintMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        cursorImage.sprite = cursorBasic;
         overIcon=false;
         hintBox.SetActive(false);
     }
@@ -45,8 +63,25 @@ public class HintMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             if (Input.GetMouseButtonDown(0))
             {
+                audioManager.PlaySFX(audioManager.selectClip);
                 displaying = false;
                 hintBox.SetActive(false );
+                if(magic == true)
+                {
+                    if(objectType != 0)
+                    {
+                        inventoryObject.GetComponent<InventoryItems>().selected = objectType - 20;
+                        inventoryObject.GetComponent<InventoryItems>().setMagic = true;
+                    }
+                }
+                if(spell == true)
+                {
+                    if(objectType != 0)
+                    {
+                        inventoryObject.GetComponent<InventoryItems>().selected = objectType - 30;
+                        inventoryObject.GetComponent<InventoryItems>().setSpell = true;
+                    }
+                }
             }
         }
         if (Input.GetMouseButtonUp(0))
@@ -67,7 +102,7 @@ public class HintMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
         if (objectType == 2)
         {
-            message.text = InventoryItems.purpleMusroom.ToString() + " purple mushrooms to be used in potions";
+            message.text = InventoryItems.purpleMushroom.ToString() + " purple mushrooms to be used in potions";
         }
         if (objectType == 3)
         {
@@ -125,5 +160,59 @@ public class HintMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             message.text = InventoryItems.meat.ToString() + " meat to replenish health";
         }
+        if (objectType == 20)
+        {
+            message.text = "explosive fire attack";
+        }
+        if (objectType == 21)
+        {
+            message.text = "replenishes full health";
+        }
+        if (objectType == 22)
+        {
+            message.text = "become invisible for as long as mana lasts";
+        }
+        if (objectType == 23)
+        {
+            message.text = "become invulnerable for as long as mana lasts";
+        }
+        if (objectType == 24)
+        {
+            message.text = "double strength for as long as mana lasts";
+        }
+        if (objectType == 25)
+        {
+            message.text = "swirl attack";
+        }
+        if (objectType == 30)
+        {
+            message.text = "magic attack 1";
+        }
+        if (objectType == 31)
+        {
+            message.text = "magic attack 2";
+        }
+        if (objectType == 32)
+        {
+            message.text = "magic attack 3";
+        }
+        if (objectType == 33)
+        {
+            message.text = "magic attack 4";
+        }
+        if (objectType == 34)
+        {
+            message.text = "magic attack 5";
+        }
+        if (objectType == 35)
+        {
+            message.text = "magic attack 6";
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        theCanvas.GetComponent<CreatePotion>().thisValue = objectType;
+        theCanvas.GetComponent<CreatePotion>().UpdateValues();
     }
 }

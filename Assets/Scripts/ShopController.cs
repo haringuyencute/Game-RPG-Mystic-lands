@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ShopController : MonoBehaviour
 {
     public GameObject shopUI;
+    public AudioManager audioManager;
     //Arrays
     public int[] amt;
     public int[] cost;
@@ -55,6 +56,7 @@ public class ShopController : MonoBehaviour
                             InventoryItems.iconUpdate = true;
                         }
                         InventoryItems.gold -= cost[i];
+                        audioManager.PlaySFX(audioManager.buyClip);
                         if (tavern == true)
                         {
                             SetTavernAmt(i);
