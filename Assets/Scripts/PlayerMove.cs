@@ -26,7 +26,10 @@ public class PlayerMove : MonoBehaviour
     public GameObject freeCam;
     public GameObject staticCam;
     private bool freeCamActive = true;
+    public GameObject spawnPoint;
+    private WaitForSeconds approachEnemy = new WaitForSeconds(0.3f);
 
+    public GameObject[] playerObjs;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +39,7 @@ public class PlayerMove : MonoBehaviour
         currentPos = ct.m_FollowOffset;
         freeCam.SetActive(true);
         staticCam.SetActive(false);
+        SaveScript.spawnPoint = spawnPoint;
     }
 
     // Update is called once per frame
@@ -57,7 +61,20 @@ public class PlayerMove : MonoBehaviour
                 ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit,300,moveLayer))
                 {
-                    nav.destination = hit.point;
+                    if(hit.transform.gameObject.CompareTag("enemy"))
+                    {
+                        nav.isStopped = false;
+                        SaveScript.theTarget = hit.transform.gameObject;
+                        nav.destination = hit.point;
+                        StartCoroutine(MoveTo());
+                    }
+                    else
+                    {
+                        SaveScript.theTarget = null;
+
+                        nav.destination = hit.point;
+                        nav.isStopped = false;
+                    }
                 }
             }
         }
@@ -95,6 +112,31 @@ public class PlayerMove : MonoBehaviour
                 freeCamActive = true;
             }
         }
-            
+        if (playerObjs[0].activeSelf == true)
+        {
+            if (SaveScript.invisible == true)
+            {
+                for (int i = 0; i < playerObjs.Length; i++)
+                {
+                    playerObjs[i].SetActive(false);
+                }
+            }
+        }
+        if (playerObjs[0].activeSelf == false)
+        {
+            if (SaveScript.invisible == false)
+            {
+                for (int i = 0; i < playerObjs.Length; i++)
+                {
+                    playerObjs[i].SetActive(true);
+                }
+            }
+        }
+
+    }
+    IEnumerator MoveTo()
+    {
+        yield return approachEnemy;
+        nav.isStopped = true;
     }
 }

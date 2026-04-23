@@ -19,6 +19,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip buyClip;
     public AudioClip createPotionClip;
     public AudioClip pickupClip;
+    public AudioClip chestClip;
+    public AudioClip[] magicClips;
     [HideInInspector]
     public bool canPlay = true;
     public int musicState = 1;

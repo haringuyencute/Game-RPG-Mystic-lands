@@ -57,6 +57,9 @@ public class InventoryItems : MonoBehaviour
     public int selected = 0;
     public int[] magicAttack;
 
+    public GameObject[] magicParticles;
+    public Image manaBar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,7 +98,6 @@ public class InventoryItems : MonoBehaviour
         }
         if (setMagic)
         {
-            setMagic = false;
             for (int i = 0; i < UISlots.Length; i++)
             {
                 if (Input.GetKeyDown(keyCodes[i]))
@@ -121,6 +123,29 @@ public class InventoryItems : MonoBehaviour
                 }
             }
         }
+        if(Input.anyKey && Time.timeScale == 1)
+        {
+            for(int i = 0;i < UISlots.Length;i++)
+            {
+                if (Input.GetKeyDown(keyCodes[i]))
+                {
+                    if(UISlots[i].sprite != emptyIcon)
+                    {
+                        if(SaveScript.manaAmt > 0.1f)
+                        {
+                            Instantiate(magicParticles[magicAttack[i]], SaveScript.spawnPoint.transform.position, SaveScript.spawnPoint.transform.rotation);
+                            audioManager.PlaySFX(audioManager.magicClips[magicAttack[i]]);
+                        }
+                        if (magicAttack[i] < 6 && SaveScript.manaAmt > 0.1f)
+                        {
+                            UISlots[i].sprite = emptyIcon;
+                        }
+
+                    }
+                }
+            }
+        }
+        manaBar.fillAmount = SaveScript.manaAmt;
     }
 
     public void CheckStatics()
@@ -163,6 +188,7 @@ public class InventoryItems : MonoBehaviour
         openBook.SetActive(true);
         closedBook.SetActive(false);
         audioManager.PlaySFX(audioManager.bookOpenClip);
+        SaveScript.theTarget = null;
         Time.timeScale = 0;
     }
     public void CloseMenu()
