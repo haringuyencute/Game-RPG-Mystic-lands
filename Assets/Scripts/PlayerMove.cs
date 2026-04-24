@@ -15,9 +15,10 @@ public class PlayerMove : MonoBehaviour
     private float velocitySpeed;
 
     CinemachineTransposer ct;
-    public CinemachineVirtualCamera playerCam;
+    CinemachineOrbitalTransposer cot;
     private Vector3 pos;
     private Vector3 currentPos;
+    private string axisNamed = "Mouse X";
 
     public static bool canMove = true;
     public static bool moving = false;
@@ -30,16 +31,24 @@ public class PlayerMove : MonoBehaviour
     private WaitForSeconds approachEnemy = new WaitForSeconds(0.3f);
 
     public GameObject[] playerObjs;
+    public GameObject[] weapons;
+    public GameObject[] armorTorso;
+    public GameObject[] armorLegs;
     // Start is called before the first frame update
     void Start()
     {
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        ct = playerCam.GetCinemachineComponent<CinemachineTransposer>();
+        ct = freeCam.gameObject.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>();
+        cot = staticCam.gameObject.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>();
         currentPos = ct.m_FollowOffset;
-        freeCam.SetActive(true);
-        staticCam.SetActive(false);
+        freeCam.SetActive(false);
+        staticCam.SetActive(true);
         SaveScript.spawnPoint = spawnPoint;
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            weapons[i].SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -53,6 +62,17 @@ public class PlayerMove : MonoBehaviour
         //Get mouse position
         pos = Input.mousePosition;
         ct.m_FollowOffset = currentPos;
+
+        if (SaveScript.weaponChange == true)
+        {
+            SaveScript.weaponChange = false;
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                weapons[i].SetActive(false);
+            }
+            weapons[SaveScript.weaponChoice].SetActive(true);
+            //StartCoroutine(TurnOffTrail());
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -81,6 +101,16 @@ public class PlayerMove : MonoBehaviour
 
         if (velocitySpeed != 0f)
         {
+            if(SaveScript.carryingWeapon ==false)
+            {
+                anim.SetBool("sprinting",true);
+                anim.SetBool("carryWeapon",false);
+            }
+            if(SaveScript.carryingWeapon == true)
+            {
+                anim.SetBool("sprinting",true);
+                anim.SetBool("carryWeapon", true);
+            }
             anim.SetBool("sprinting", true);
             moving = true;
         }
@@ -92,10 +122,16 @@ public class PlayerMove : MonoBehaviour
 
         if(Input.GetMouseButton(1))
         {
+            cot.m_XAxis.m_InputAxisName = axisNamed;
             if(pos.x != 0 || pos.y != 0 )
             {
                 currentPos = pos / 200;
             }
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            cot.m_XAxis.m_InputAxisName = null;
+            cot.m_XAxis.m_InputAxisValue = 0;
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -122,17 +158,31 @@ public class PlayerMove : MonoBehaviour
                 }
             }
         }
-        if (playerObjs[0].activeSelf == false)
+        if (SaveScript.manaAmt <= 0.1)
         {
             if (SaveScript.invisible == false)
             {
                 for (int i = 0; i < playerObjs.Length; i++)
                 {
-                    playerObjs[i].SetActive(true);
+                    playerObjs[i].SetActive(true); 
+                    SaveScript.changeArmor = true;
                 }
             }
         }
-
+        if (SaveScript.changeArmor == true)
+        {
+            for (int i = 0; i < armorTorso.Length; i++)
+            {
+                armorTorso[i].SetActive(false);
+            }
+            armorTorso[SaveScript.armor].SetActive(true);
+            for (int i = 0; i < armorLegs.Length; i++)
+            {
+                armorLegs[i].SetActive(false);
+            }
+            armorLegs[SaveScript.armor].SetActive(true);
+            SaveScript.changeArmor = false;
+        }
     }
     IEnumerator MoveTo()
     {

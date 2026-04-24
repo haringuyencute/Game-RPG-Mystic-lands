@@ -57,6 +57,7 @@ public class AudioManager : MonoBehaviour
     }
     public void PlaySFX(AudioClip clip)
     {
-        UISound.PlayOneShot(clip);
+        UISound.clip = clip;
+        UISound.Play();
     }
 }

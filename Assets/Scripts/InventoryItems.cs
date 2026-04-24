@@ -9,6 +9,9 @@ public class InventoryItems : MonoBehaviour
     public GameObject openBook;
     public GameObject closedBook;
     public GameObject potionBook;
+    public GameObject inventoryScreen;
+    public GameObject statsScreen;
+    public GameObject characterDisplay;
 
     public Image[] emptySlots;
     public Sprite[] icons;
@@ -30,7 +33,7 @@ public class InventoryItems : MonoBehaviour
     public static int bread = 0;
     public static int cheese = 0;
     public static int meat = 0;
-    public static bool key = true;
+    public static bool key = false;
     public static int gold = 30000;
 
     public static int newIcon = 0;
@@ -59,6 +62,7 @@ public class InventoryItems : MonoBehaviour
 
     public GameObject[] magicParticles;
     public Image manaBar;
+    public bool[] weapons;
 
     // Start is called before the first frame update
     void Start()
@@ -189,6 +193,7 @@ public class InventoryItems : MonoBehaviour
         closedBook.SetActive(false);
         audioManager.PlaySFX(audioManager.bookOpenClip);
         SaveScript.theTarget = null;
+        OpenInventoryScreen();
         Time.timeScale = 0;
     }
     public void CloseMenu()
@@ -196,9 +201,25 @@ public class InventoryItems : MonoBehaviour
         inventoryMenu.SetActive(false);
         openBook.SetActive(false);
         closedBook.SetActive(true);
+        audioManager.PlaySFX(audioManager.bookOpenClip);
+        characterDisplay.SetActive(false);
         Time.timeScale = 1;
     }
-
+    public void OpenInventoryScreen()
+    {
+        statsScreen.SetActive(false);
+        characterDisplay.SetActive(false);
+        inventoryScreen.SetActive(true);
+    }
+    public void OpenStatsScreen()
+    {
+        inventoryScreen.SetActive(false);
+        statsScreen.SetActive(true);
+        characterDisplay.SetActive(true);
+        characterDisplay.GetComponent<PlayerDisplay>().ChangeDisplayArmor();
+        characterDisplay.GetComponentInChildren<DisplayArmor>().UpdateArmor();
+        statsScreen.GetComponent<StatsUpdate>().updateWeapons = true;
+    }
     public void OpenPotionBook()
     {
         potionBook.SetActive(true);
