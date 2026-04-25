@@ -15,7 +15,11 @@ public class ParticleMove : MonoBehaviour
     private GameObject targetSave;
     public float manacost = 0.05f;
     public bool invisibility = false;
-
+    public bool invulnerability = false;
+    public bool healing = false;
+    public bool strength = false;
+    public int damageAmt = 30;
+    public GameObject lastObj;
     private void Start()
     {
         targetSave = SaveScript.theTarget;
@@ -23,6 +27,18 @@ public class ParticleMove : MonoBehaviour
         if(invisibility == true)
         {
             SaveScript.invisible = true;
+        }
+        if(invulnerability == true)
+        {
+            SaveScript.invulnerable = true;
+        }
+        if(healing == true)
+        {
+            SaveScript.playerHealth = 1f;
+        }
+        if(strength == true)
+        {
+            SaveScript.strengthIncrease = 100;
         }
     }
     private void Update()
@@ -64,5 +80,14 @@ public class ParticleMove : MonoBehaviour
         }
         SaveScript.manaAmt -= manacost*Time.deltaTime;
         Destroy(obj, lifeTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("enemy") && other.transform.gameObject != lastObj)
+        {
+            other.transform.gameObject.GetComponent<EnemyMove>().enemyHealth -= damageAmt;
+            lastObj = other.transform.gameObject;
+        }
     }
 }

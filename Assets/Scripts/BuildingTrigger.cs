@@ -8,6 +8,8 @@ public class BuildingTrigger : MonoBehaviour
     public GameObject props;
     public AudioManager audioManager;
     public bool tavern = true;
+    public bool blacksmith = false;
+    public bool wizard = false;
     void Start()
     {
         roof.SetActive(true);
@@ -24,6 +26,16 @@ public class BuildingTrigger : MonoBehaviour
                 audioManager.musicState = 2;
                 audioManager.canPlay = true;
             }
+            if (wizard)
+            {
+                audioManager.musicState = 4;
+                audioManager.canPlay = true;
+            }
+            if (blacksmith)
+            {
+                audioManager.musicState = 5;
+                audioManager.canPlay = true;
+            }
         }
     }
     private void OnTriggerExit(Collider other)
@@ -32,11 +44,8 @@ public class BuildingTrigger : MonoBehaviour
         {
             roof.SetActive(true);
             props.SetActive(false);
-            if (tavern)
-            {
-                audioManager.musicState = 1;
-                audioManager.canPlay = true;
-            }
+            audioManager.musicState = 1;
+            audioManager.canPlay = true;
         }
     }
 }

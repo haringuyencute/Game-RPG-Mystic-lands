@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 public class PlayerMove : MonoBehaviour
 {
     private NavMeshAgent nav;
@@ -34,6 +35,14 @@ public class PlayerMove : MonoBehaviour
     public GameObject[] weapons;
     public GameObject[] armorTorso;
     public GameObject[] armorLegs;
+    public string[] attacks;
+    public AudioSource audioPlayer;
+    public AudioClip[] weaponSounds;
+    private AnimatorStateInfo playerInfo;
+    private GameObject trailObj;
+    private WaitForSeconds trailOffTime = new WaitForSeconds(0.1f);
+    public float[] staminaCost;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +63,7 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerInfo = anim.GetCurrentAnimatorStateInfo(0);
         //Calculate velocity speed
         x = nav.velocity.x;
         z = nav.velocity.z;
@@ -71,10 +81,19 @@ public class PlayerMove : MonoBehaviour
                 weapons[i].SetActive(false);
             }
             weapons[SaveScript.weaponChoice].SetActive(true);
-            //StartCoroutine(TurnOffTrail());
+            StartCoroutine(TurnOffTrail());
+        }
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            if(SaveScript.carryingWeapon == true && SaveScript.staminaAmt > 0.2)
+            {
+                anim.SetTrigger(attacks[SaveScript.weaponChoice]);
+                audioPlayer.clip = weaponSounds[SaveScript.weaponChoice];
+                SaveScript.staminaAmt -= staminaCost[SaveScript.weaponChoice];
+            }
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && playerInfo.IsTag("nonAttack") && !anim.IsInTransition(0))
         {
             if(canMove)
             {
@@ -86,6 +105,7 @@ public class PlayerMove : MonoBehaviour
                         nav.isStopped = false;
                         SaveScript.theTarget = hit.transform.gameObject;
                         nav.destination = hit.point;
+                        transform.LookAt(SaveScript.theTarget.transform);
                         StartCoroutine(MoveTo());
                     }
                     else
@@ -183,10 +203,33 @@ public class PlayerMove : MonoBehaviour
             armorLegs[SaveScript.armor].SetActive(true);
             SaveScript.changeArmor = false;
         }
+        if (SaveScript.playerHealth <= 0.0f)
+        {
+            SceneManager.LoadScene(0);
+            SaveScript.playerHealth = 1;
+        }
+    }
+    public void PlayWeaponSound()
+    {
+        audioPlayer.Play();
     }
     IEnumerator MoveTo()
     {
         yield return approachEnemy;
         nav.isStopped = true;
+    }
+    public void TrailOn()
+    {
+        trailObj.GetComponent<Renderer>().enabled = true;
+    }
+    public void TrailOff()
+    {
+        trailObj.GetComponent<Renderer>().enabled = false;
+    }
+    IEnumerator TurnOffTrail()
+    {
+        yield return trailOffTime;
+        trailObj = GameObject.Find("Trail");
+        trailObj.GetComponent<Renderer>().enabled = false;
     }
 }

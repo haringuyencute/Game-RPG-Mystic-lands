@@ -16,6 +16,6 @@ public class PlayerDisplay : MonoBehaviour
     }
     public void ChangeDisplayArmor()
     {
-        //playersDisplay[SaveScript.pchar].GetComponent<DisplayArmor>().UpdateArmor();
+        playersDisplay[SaveScript.pchar].GetComponent<DisplayArmor>().UpdateArmor();
     }
 }

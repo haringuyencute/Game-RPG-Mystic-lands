@@ -62,6 +62,8 @@ public class InventoryItems : MonoBehaviour
 
     public GameObject[] magicParticles;
     public Image manaBar;
+    public Image staminabar;
+    public Image healthImage;
     public bool[] weapons;
 
     // Start is called before the first frame update
@@ -87,6 +89,7 @@ public class InventoryItems : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        healthImage.fillAmount = SaveScript.playerHealth;
         if (iconUpdate)
         {
             for (int i = 0; i < max; i++)
@@ -150,6 +153,10 @@ public class InventoryItems : MonoBehaviour
             }
         }
         manaBar.fillAmount = SaveScript.manaAmt;
+        if(SaveScript.staminaAmt != staminabar.fillAmount)
+        {
+            staminabar.fillAmount = Mathf.Lerp(staminabar.fillAmount,SaveScript.staminaAmt,2*Time.deltaTime);
+        }
     }
 
     public void CheckStatics()
@@ -217,7 +224,6 @@ public class InventoryItems : MonoBehaviour
         statsScreen.SetActive(true);
         characterDisplay.SetActive(true);
         characterDisplay.GetComponent<PlayerDisplay>().ChangeDisplayArmor();
-        characterDisplay.GetComponentInChildren<DisplayArmor>().UpdateArmor();
         statsScreen.GetComponent<StatsUpdate>().updateWeapons = true;
     }
     public void OpenPotionBook()

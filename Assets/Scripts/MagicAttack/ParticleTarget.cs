@@ -7,6 +7,8 @@ public class ParticleTarget : MonoBehaviour
     public float speed = 1f;
     public bool rotator = false;
     public bool particleTarget = false;
+    public int damageAmt = 30;
+    public GameObject lastObj;
 
     // Update is called once per frame
     void Update()
@@ -19,5 +21,5 @@ public class ParticleTarget : MonoBehaviour
         {
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
-    }
+    } 
 }

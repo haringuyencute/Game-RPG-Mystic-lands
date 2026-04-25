@@ -31,12 +31,12 @@ public class HintMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             cursorImage.sprite = cursorHand;
             hintBox.SetActive(true);
             if(left == true)
-            {
-                screenPoint.x = Input.mousePosition.x + 500;
+ {
+                screenPoint.x = Input.mousePosition.x + Screen.width / 2.5f;
             }
-            else
+            if (left == false)
             {
-                screenPoint.x = Input.mousePosition.x - 500;
+                screenPoint.x = Input.mousePosition.x - Screen.width / 2.5f;
             }
             screenPoint.y = Input.mousePosition.y;
             screenPoint.z = 1f;
@@ -94,7 +94,6 @@ public class HintMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if(objectType == 0)
         {
             message.text = "Empty";
-
         }
         if (objectType == 1)
         {

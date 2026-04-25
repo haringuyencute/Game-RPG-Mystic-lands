@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Chest
   - enemy
+  - Collide
+  - crate
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
+  - characrerDisplay
   - 
   - 
   - 

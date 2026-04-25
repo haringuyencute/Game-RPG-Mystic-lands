@@ -12,6 +12,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip bgClipLoop;
     public AudioClip tavernClipLoop;
     public AudioClip battleClipLoop;
+    public AudioClip blacksmithLoop;
+    public AudioClip wizardLoop;
 
     [Header("UI Clip")]
     public AudioClip bookOpenClip;
@@ -20,6 +22,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip createPotionClip;
     public AudioClip pickupClip;
     public AudioClip chestClip;
+    public AudioClip selectWeaponClip;
     public AudioClip[] magicClips;
     [HideInInspector]
     public bool canPlay = true;
@@ -52,6 +55,14 @@ public class AudioManager : MonoBehaviour
         else if( musicState == 3)
         {
             audioPlayer.clip = battleClipLoop;
+        }
+        else if( musicState == 4)
+        {
+            audioPlayer.clip = blacksmithLoop;
+        }
+        else if( musicState == 5)
+        {
+            audioPlayer.clip = wizardLoop;
         }
         audioPlayer.Play();
     }

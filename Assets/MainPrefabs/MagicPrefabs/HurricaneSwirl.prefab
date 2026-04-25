@@ -92,9 +92,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5720911062981989571}
     m_Modifications:
+    - target: {fileID: 103704, guid: 10eec583e8e6e6149b51b3a3780ab1dc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 107850, guid: 10eec583e8e6e6149b51b3a3780ab1dc, type: 3}
       propertyPath: m_Name
       value: pf_vfx-inf_psys_demo_loop_hurricane
+      objectReference: {fileID: 0}
+    - target: {fileID: 107850, guid: 10eec583e8e6e6149b51b3a3780ab1dc, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 428130, guid: 10eec583e8e6e6149b51b3a3780ab1dc, type: 3}
       propertyPath: m_LocalScale.x
@@ -197,6 +205,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6428091447581572424}
+    - targetCorrespondingSourceObject: {fileID: 107850, guid: 10eec583e8e6e6149b51b3a3780ab1dc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4481245608223293372}
+    - targetCorrespondingSourceObject: {fileID: 107850, guid: 10eec583e8e6e6149b51b3a3780ab1dc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3550930900645855487}
   m_SourcePrefab: {fileID: 100100000, guid: 10eec583e8e6e6149b51b3a3780ab1dc, type: 3}
 --- !u!4 &3051429075942034210 stripped
 Transform:
@@ -230,3 +246,57 @@ MonoBehaviour:
   nonMoving: 0
   followPlayer: 0
   manacost: 0.09
+  invisibility: 0
+  invulnerability: 0
+  healing: 0
+  strength: 0
+  damageAmt: 100
+  lastObj: {fileID: 0}
+--- !u!54 &4481245608223293372
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3051429075942237706}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &3550930900645855487
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3051429075942237706}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 26.26, y: 5.12, z: 25.7}
+  m_Center: {x: 0.34, y: 2.47, z: 6.56}

@@ -11,11 +11,16 @@ public class Pickups : MonoBehaviour
     public bool blueFlower = false;
     public bool redFlower = false;
     public bool key = false;
+    public bool coins = false;
     public AudioManager audioManager;
 
     private void Start()
     {
         audioManager = FindFirstObjectByType<AudioManager>();
+        if (coins)
+        {
+            Destroy(gameObject, 5);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,7 +34,7 @@ public class Pickups : MonoBehaviour
                 {
                     DisplayIcons();
                 }
-                InventoryItems.redMushroom++;
+                InventoryItems .redMushroom++;
                 Destroy(gameObject);
             }
             else if (purpleMushroom)
@@ -72,6 +77,11 @@ public class Pickups : MonoBehaviour
             {
                 DisplayIcons();
                 InventoryItems.key = true;
+                Destroy(gameObject);
+            }
+            else if (coins)
+            {
+                InventoryItems.gold += Random.Range(5, 250);
                 Destroy(gameObject);
             }
             else

@@ -9796,6 +9796,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6723434965142897458}
   - component: {fileID: 5422837710256326400}
+  - component: {fileID: 818449562312153018}
+  - component: {fileID: 5276586590591612207}
   m_Layer: 0
   m_Name: Fire_A4
   m_TagString: Untagged
@@ -9841,6 +9843,57 @@ MonoBehaviour:
   nonMoving: 0
   followPlayer: 0
   manacost: 0.04
+  invisibility: 0
+  damageAmt: 60
+  lastObj: {fileID: 0}
+--- !u!65 &818449562312153018
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2154175388503166885}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &5276586590591612207
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2154175388503166885}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2452808090186318827
 GameObject:
   m_ObjectHideFlags: 0
@@ -14782,6 +14835,8 @@ MonoBehaviour:
   speed: 5
   rotator: 0
   particleTarget: 1
+  damageAmt: 60
+  lastObj: {fileID: 0}
 --- !u!1 &2788111300630253870
 GameObject:
   m_ObjectHideFlags: 0
@@ -19634,6 +19689,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4935776553195255979}
   - component: {fileID: 2211518815733288840}
+  - component: {fileID: 6524811510999932185}
+  - component: {fileID: 7898005587868623676}
   m_Layer: 0
   m_Name: Fire_A5
   m_TagString: Untagged
@@ -19679,6 +19736,57 @@ MonoBehaviour:
   nonMoving: 0
   followPlayer: 0
   manacost: 0.04
+  invisibility: 0
+  damageAmt: 60
+  lastObj: {fileID: 0}
+--- !u!65 &6524811510999932185
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161328139203221260}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &7898005587868623676
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161328139203221260}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3209019894744116519
 GameObject:
   m_ObjectHideFlags: 0
@@ -24629,6 +24737,8 @@ MonoBehaviour:
   speed: 5
   rotator: 0
   particleTarget: 1
+  damageAmt: 60
+  lastObj: {fileID: 0}
 --- !u!1 &4370290241804559751
 GameObject:
   m_ObjectHideFlags: 0
@@ -63393,6 +63503,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5594608664399828025}
   - component: {fileID: 5690095022437710200}
+  - component: {fileID: 6226775294957973111}
+  - component: {fileID: 4491037694164152791}
   m_Layer: 0
   m_Name: Fire_A1
   m_TagString: Untagged
@@ -63438,6 +63550,57 @@ MonoBehaviour:
   nonMoving: 0
   followPlayer: 0
   manacost: 0.04
+  invisibility: 0
+  damageAmt: 60
+  lastObj: {fileID: 0}
+--- !u!65 &6226775294957973111
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6564248834733532726}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &4491037694164152791
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6564248834733532726}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6933481372238044343
 GameObject:
   m_ObjectHideFlags: 0
@@ -68290,6 +68453,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4309192942987890330}
   - component: {fileID: 4857192981004617071}
+  - component: {fileID: 2901101095385029946}
+  - component: {fileID: 3687910940091845966}
   m_Layer: 0
   m_Name: Fire_A3
   m_TagString: Untagged
@@ -68335,6 +68500,57 @@ MonoBehaviour:
   nonMoving: 0
   followPlayer: 0
   manacost: 0.04
+  invisibility: 0
+  damageAmt: 60
+  lastObj: {fileID: 0}
+--- !u!65 &2901101095385029946
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7369526842290078216}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &3687910940091845966
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7369526842290078216}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7746280220999696260
 GameObject:
   m_ObjectHideFlags: 0
@@ -68345,6 +68561,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3705228150935467955}
   - component: {fileID: 3253535392059512076}
+  - component: {fileID: 3192493866052470254}
+  - component: {fileID: 7289331515638290379}
   m_Layer: 0
   m_Name: Fire_A2
   m_TagString: Untagged
@@ -68390,6 +68608,57 @@ MonoBehaviour:
   nonMoving: 0
   followPlayer: 0
   manacost: 0.04
+  invisibility: 0
+  damageAmt: 60
+  lastObj: {fileID: 0}
+--- !u!65 &3192493866052470254
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7746280220999696260}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &7289331515638290379
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7746280220999696260}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7932194319996555068
 GameObject:
   m_ObjectHideFlags: 0
@@ -73340,6 +73609,8 @@ MonoBehaviour:
   speed: 5
   rotator: 0
   particleTarget: 1
+  damageAmt: 60
+  lastObj: {fileID: 0}
 --- !u!1 &8503026023267681376
 GameObject:
   m_ObjectHideFlags: 0
@@ -73439,6 +73710,8 @@ MonoBehaviour:
   speed: 5
   rotator: 0
   particleTarget: 1
+  damageAmt: 60
+  lastObj: {fileID: 0}
 --- !u!1 &9018716481948654098
 GameObject:
   m_ObjectHideFlags: 0
@@ -73538,3 +73811,5 @@ MonoBehaviour:
   speed: 5
   rotator: 0
   particleTarget: 1
+  damageAmt: 60
+  lastObj: {fileID: 0}

@@ -38,7 +38,11 @@ public class MessageShopController : MonoBehaviour, IPointerEnterHandler, IPoint
     {
         shopOwnerMessage.text = "select items from the list";
         shopUI[shopNum].SetActive(true);
-        shopUI[shopNum].GetComponent<ShopController>().UpdateGold();
+        if (shopNum < 6)
+        {
+            shopUI[shopNum].GetComponent<ShopController>().UpdateGold();
+
+        }
     }
     private void Update()
     {

@@ -15,12 +15,17 @@ public class ChestController : MonoBehaviour
     public GameObject mainCam;
     private int goldDisplay;
     public AudioManager audioManager;
+    public bool crate = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
+        if(crate == false)
+        {
+            anim = GetComponent<Animator>();
+
+        }
         canvasText.SetActive(false);
         goldDisplay = goldAmount;
     }
@@ -37,24 +42,30 @@ public class ChestController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (crate != false)
         {
-            if(InventoryItems.key)
+            if (other.CompareTag("Player"))
             {
-                anim.SetTrigger("open");
-                InventoryItems.gold += goldAmount;
-                goldAmount = 0;
-                audioManager.PlaySFX(audioManager.chestClip);
+                if (InventoryItems.key)
+                {
+                    anim.SetTrigger("open");
+                    InventoryItems.gold += goldAmount;
+                    goldAmount = 0;
+                    audioManager.PlaySFX(audioManager.chestClip);
+                }
             }
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if(crate == false)
         {
-            if(InventoryItems.key)
+            if (other.CompareTag("Player"))
             {
-                anim.SetTrigger("close");
+                if (InventoryItems.key)
+                {
+                    anim.SetTrigger("close");
+                }
             }
         }
     }
@@ -62,10 +73,16 @@ public class ChestController : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
-    public void PariclesChest()
+    public void Particles()
     {
         Instantiate(particleEffect, spawnPoint.transform.position,spawnPoint.transform.rotation);
         canvasText.SetActive(true);
+        if (crate == true)
+        {
+            InventoryItems.gold += goldAmount;
+            goldAmount = 0;
+            audioManager.PlaySFX(audioManager.chestClip);
+        }
     }
 }
 
