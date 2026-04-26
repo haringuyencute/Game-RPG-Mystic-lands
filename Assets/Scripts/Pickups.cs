@@ -12,6 +12,7 @@ public class Pickups : MonoBehaviour
     public bool redFlower = false;
     public bool key = false;
     public bool coins = false;
+    public bool isDragon = false;
     public AudioManager audioManager;
 
     private void Start()
@@ -30,47 +31,47 @@ public class Pickups : MonoBehaviour
             audioManager.PlaySFX(audioManager.pickupClip);
             if (redMushroom)
             {
-                if(InventoryItems.redMushroom == 0)
+                if(InventoryItems.redMushrooms == 0)
                 {
                     DisplayIcons();
                 }
-                InventoryItems .redMushroom++;
+                InventoryItems .redMushrooms++;
                 Destroy(gameObject);
             }
             else if (purpleMushroom)
             {
-                if (InventoryItems.purpleMushroom == 0)
+                if (InventoryItems.purpleMushrooms == 0)
                 {
                     DisplayIcons();
                 }
-                InventoryItems.purpleMushroom++;
+                InventoryItems.purpleMushrooms++;
                 Destroy(gameObject);
             }
             else if (brownMushroom)
             {
-                if (InventoryItems.brownMushroom == 0)
+                if (InventoryItems.brownMushrooms == 0)
                 {
                     DisplayIcons();
                 }
-                InventoryItems.brownMushroom++;
+                InventoryItems.brownMushrooms++;
                 Destroy(gameObject);
             }
             else if (blueFlower)
             {
-                if (InventoryItems.blueFlower == 0)
+                if (InventoryItems.blueFlowers == 0)
                 {
                     DisplayIcons();
                 }
-                InventoryItems.blueFlower++;
+                InventoryItems.blueFlowers++;
                 Destroy(gameObject);
             }
             else if (redFlower)
             {
-                if (InventoryItems.redFlower == 0)
+                if (InventoryItems.redFlowers == 0)
                 {
                     DisplayIcons();
                 }
-                InventoryItems.redFlower++;
+                InventoryItems.redFlowers++;
                 Destroy(gameObject);
             }
             else if (key)
@@ -81,8 +82,17 @@ public class Pickups : MonoBehaviour
             }
             else if (coins)
             {
-                InventoryItems.gold += Random.Range(5, 250);
-                Destroy(gameObject);
+                if (isDragon)
+                {
+                    InventoryItems.gold += 500;
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    InventoryItems.gold += Random.Range(5, 250);
+                    Destroy(gameObject);
+                }
+
             }
             else
             {

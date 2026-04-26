@@ -11,11 +11,6 @@ public class PlayerSpawn : MonoBehaviour
     void Start()
     {
         Instantiate(characters[SaveScript.pchar],spawnPoint.position,spawnPoint.rotation);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        PlayerMove.canMove = true;
     }
 }

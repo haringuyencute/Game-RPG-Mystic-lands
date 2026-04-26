@@ -82,6 +82,21 @@ public class HintMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                         inventoryObject.GetComponent<InventoryItems>().setSpell = true;
                     }
                 }
+                if (objectType == 14)
+                {
+                    SaveScript.playerHealth += 0.05f;
+                    InventoryItems.bread--;
+                }
+                if (objectType == 15)
+                {
+                    SaveScript.playerHealth += 0.08f;
+                    InventoryItems.cheese--;
+                }
+                if (objectType == 16)
+                {
+                    SaveScript.playerHealth += 0.1f;
+                    InventoryItems.meat--;
+                }
             }
         }
         if (Input.GetMouseButtonUp(0))
@@ -97,27 +112,27 @@ public class HintMessage : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
         if (objectType == 1)
         {
-            message.text = InventoryItems.redMushroom.ToString() + " red mushrooms to be used in potions";
+            message.text = InventoryItems.redMushrooms.ToString() + " red mushrooms to be used in potions";
         }
         if (objectType == 2)
         {
-            message.text = InventoryItems.purpleMushroom.ToString() + " purple mushrooms to be used in potions";
+            message.text = InventoryItems.purpleMushrooms.ToString() + " purple mushrooms to be used in potions";
         }
         if (objectType == 3)
         {
-            message.text = InventoryItems.brownMushroom.ToString() + " brown mushrooms to be used in potions";
+            message.text = InventoryItems.brownMushrooms.ToString() + " brown mushrooms to be used in potions";
         }
         if (objectType == 4)
         {
-            message.text = InventoryItems.blueFlower.ToString() + " blue flowers to be used in potions";
+            message.text = InventoryItems.blueFlowers.ToString() + " blue flowers to be used in potions";
         }
         if (objectType == 5)
         {
-            message.text = InventoryItems.redFlower.ToString() + " red flowers to be used in potions";
+            message.text = InventoryItems.redFlowers.ToString() + " red flowers to be used in potions";
         }
         if (objectType == 6)
         {
-            message.text = InventoryItems.root.ToString() + " roots to be used in potions";
+            message.text = InventoryItems.roots.ToString() + " roots to be used in potions";
         }
         if (objectType == 7)
         {

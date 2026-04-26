@@ -8,6 +8,10 @@ TagManager:
   - enemy
   - Collide
   - crate
+  - spider
+  - dragon
+  - minimapItem
+  - compass
   layers:
   - Default
   - TransparentFX
@@ -20,7 +24,7 @@ TagManager:
   - 
   - PostProcessing
   - characrerDisplay
-  - 
+  - miniMap
   - 
   - 
   - 

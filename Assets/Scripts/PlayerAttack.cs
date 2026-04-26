@@ -23,6 +23,18 @@ public class PlayerAttack : MonoBehaviour
             other.transform.gameObject.GetComponent<EnemyMove>().enemyHealth -= damageAmt + SaveScript.weaponIncrease + SaveScript.strengthIncrease;
             StartCoroutine(ResetDamage());
         }
+        if(other.CompareTag("spider") && canDamage)
+        {
+            canDamage = false;
+            other.transform.gameObject.GetComponent<EnemyMove>().enemyHealth -= (damageAmt/8) + SaveScript.weaponIncrease + SaveScript.strengthIncrease;
+            StartCoroutine(ResetDamage());
+        }
+        if(other.CompareTag("dragon") && canDamage)
+        {
+            canDamage = false;
+            other.transform.gameObject.GetComponent<DragonController>().enemyHealth -= (damageAmt/8) + SaveScript.weaponIncrease + SaveScript.strengthIncrease;
+            StartCoroutine(ResetDamage());
+        }
     }
     IEnumerator WaitForDestroy()
     {

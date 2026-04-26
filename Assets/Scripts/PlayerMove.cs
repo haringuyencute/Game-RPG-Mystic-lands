@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Cinemachine;
 using UnityEngine.SceneManagement;
+using System;
 public class PlayerMove : MonoBehaviour
 {
     private NavMeshAgent nav;
@@ -42,15 +43,18 @@ public class PlayerMove : MonoBehaviour
     private GameObject trailObj;
     private WaitForSeconds trailOffTime = new WaitForSeconds(0.1f);
     public float[] staminaCost;
+    private float currentHealth = 1;
+    public GameObject hitEffect;
 
+    public GameObject amiObj;
     // Start is called before the first frame update
     void Start()
     {
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        ct = freeCam.gameObject.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>();
+        //ct = freeCam.gameObject.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>();
         cot = staticCam.gameObject.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>();
-        currentPos = ct.m_FollowOffset;
+        //currentPos = ct.m_FollowOffset;
         freeCam.SetActive(false);
         staticCam.SetActive(true);
         SaveScript.spawnPoint = spawnPoint;
@@ -58,6 +62,7 @@ public class PlayerMove : MonoBehaviour
         {
             weapons[i].SetActive(false);
         }
+        hitEffect.SetActive(false);
     }
 
     // Update is called once per frame
@@ -71,8 +76,19 @@ public class PlayerMove : MonoBehaviour
 
         //Get mouse position
         pos = Input.mousePosition;
-        ct.m_FollowOffset = currentPos;
+        //ct.m_FollowOffset = currentPos;
 
+        if(Input.GetMouseButton(1))
+        {
+            if (Input.GetAxis("Mouse X") > 0)
+            {
+                amiObj.transform.Rotate(0, 75 * Time.deltaTime, 0);
+            }
+            if (Input.GetAxis("Mouse X") < 0)
+            {
+                amiObj.transform.Rotate(0, -75 * Time.deltaTime, 0);
+            }
+        }
         if (SaveScript.weaponChange == true)
         {
             SaveScript.weaponChange = false;
@@ -203,12 +219,20 @@ public class PlayerMove : MonoBehaviour
             armorLegs[SaveScript.armor].SetActive(true);
             SaveScript.changeArmor = false;
         }
-        if (SaveScript.playerHealth <= 0.0f)
+        if(currentHealth > SaveScript.playerHealth)
         {
-            SceneManager.LoadScene(0);
-            SaveScript.playerHealth = 1;
+            hitEffect.SetActive(true);
+            currentHealth = SaveScript.playerHealth;
+            StartCoroutine(HitEffectOff());
         }
     }
+
+    private IEnumerator HitEffectOff()
+    {
+        yield return new WaitForSeconds(0.5f);
+        hitEffect.SetActive(false);
+    }
+
     public void PlayWeaponSound()
     {
         audioPlayer.Play();

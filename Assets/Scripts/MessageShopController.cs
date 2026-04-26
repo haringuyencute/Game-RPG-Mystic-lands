@@ -13,6 +13,8 @@ public class MessageShopController : MonoBehaviour, IPointerEnterHandler, IPoint
     public GameObject[] shopUI;
     [HideInInspector]
     public int shopNum = 0;
+    public string shopMessage;
+    public GameObject inventoryObj;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -32,7 +34,14 @@ public class MessageShopController : MonoBehaviour, IPointerEnterHandler, IPoint
     }
     public void Message1()
     {
-        shopOwnerMessage.text = "not much going on around here";
+        shopOwnerMessage.text = shopMessage;
+        if (inventoryObj != null)
+        {
+            if (shopMessage != "not much going on around here")
+            {
+                inventoryObj.GetComponent<InventoryItems>().UpdateMessages(shopMessage);
+            }
+        }
     }
     public void Message2()
     {
@@ -44,12 +53,13 @@ public class MessageShopController : MonoBehaviour, IPointerEnterHandler, IPoint
 
         }
     }
-    private void Update()
+    void Update()
     {
-        if (PlayerMove.canMove && PlayerMove.moving)
+        if (PlayerMove.canMove == true && PlayerMove.moving == true)
         {
             if (shopUI != null)
             {
+                shopOwnerMessage.text = "hello " + SaveScript.pname + " how cani help you";
                 shopUI[shopNum].SetActive(false);
             }
         }

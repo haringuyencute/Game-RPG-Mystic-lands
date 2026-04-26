@@ -7,10 +7,10 @@ public class EnemyAttack : MonoBehaviour
     public float damageAmt = 0.006f;
     private WaitForSeconds delayTime = new WaitForSeconds(1);
     private bool canAttack = true;
-    //private AudioSource audioPlayer;
+    private AudioSource audioPlayer;
     private void Start()
     {
-        //audioPlayer = GetComponent<AudioSource>();
+        audioPlayer = GetComponent<AudioSource>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -20,7 +20,7 @@ public class EnemyAttack : MonoBehaviour
             {
                 canAttack = false;
                 SaveScript.playerHealth -= damageAmt - SaveScript.armorValue;
-               // audioPlayer.Play();
+                audioPlayer.Play();
                 StartCoroutine(ResetDamage());
             }
         }

@@ -7,44 +7,72 @@ public class BookCollect : MonoBehaviour
     public GameObject magicUI;
     public GameObject spellsUI;
     public bool magicBook = false;
-    public bool spellbook = false;
-
-    private bool magicCollected = false;
-    private bool spellCollected = false;
+    public bool spellsBook = false;
+    public GameObject spellsMessage;
+    public GameObject magicMessage;
+    public AudioManager audioManager;
+    public static  bool magicCollected = false;
+    public static bool spellsCollected = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        if(magicBook)
+        if (magicBook == true)
         {
             magicUI.SetActive(false);
-
+            magicMessage.SetActive(false);
         }
-        if (spellbook)
+        if (spellsBook == true)
         {
             spellsUI.SetActive(false);
-
+            spellsMessage.SetActive(false);
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            if(magicBook && !magicCollected)
+            if (magicBook == true)
             {
-                magicUI.SetActive(true);
-                magicCollected = true;
+                if (magicCollected == false)
+                {
+                    magicUI.SetActive(true);
+                    magicCollected = true;
+                    StartCoroutine(DisplayMessageUI());
+                }
             }
-            else if(spellbook && !spellCollected)
+            if (spellsBook == true)
             {
-                spellsUI.SetActive(true) ;
-                spellCollected = true;
+                if (spellsCollected == false)
+                {
+                    spellsUI.SetActive(true);
+                    spellsCollected = true;
+                    StartCoroutine(DisplayMessageUI());
+                }
             }
         }
     }
-    private void OnTriggerExit(Collider other)
+    IEnumerator DisplayMessageUI()
     {
+        yield return new WaitForSeconds(0.5f);
+        audioManager.PlaySFX(audioManager.bookOpenClip);
+        if (magicBook == true)
+        {
+            magicMessage.SetActive(true);
+        }
+        if (spellsBook == true)
+        {
+            spellsMessage.SetActive(true);
+        }
+        yield return new WaitForSeconds(2);
+        if (magicBook == true)
+        {
+            magicMessage.SetActive(false);
+        }
+        if (spellsBook == true)
+        {
+            spellsMessage.SetActive(false);
+        }
         Destroy(gameObject);
     }
 }

@@ -38,6 +38,6 @@ public class ChoosePlayer : MonoBehaviour
     {
         SaveScript.pchar = p;
         SaveScript.pname = playerName.text;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 }

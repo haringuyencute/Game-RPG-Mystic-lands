@@ -11,19 +11,26 @@ public class InventoryItems : MonoBehaviour
     public GameObject potionBook;
     public GameObject inventoryScreen;
     public GameObject statsScreen;
+    public GameObject deedsScreen;
     public GameObject characterDisplay;
+    public GameObject optionsScreen;
+
+    private bool optionsOpen = false;
+
+    public GameObject magicUI;
+    public GameObject spellsUI;
 
     public Image[] emptySlots;
     public Sprite[] icons;
     public Sprite emptyIcon;
     public AudioManager audioManager;
 
-    public static int redMushroom = 0;
-    public static int purpleMushroom = 0;
-    public static int brownMushroom = 0;
-    public static int blueFlower = 0;
-    public static int redFlower = 0;
-    public static int root = 0;
+    public static int redMushrooms = 0;
+    public static int purpleMushrooms = 0;
+    public static int brownMushrooms = 0;
+    public static int blueFlowers = 0;
+    public static int redFlowers = 0;
+    public static int roots = 0;
     public static int leafDew = 0;
     public static int dragonEgg = 0;
     public static int redPotion = 0;
@@ -34,7 +41,7 @@ public class InventoryItems : MonoBehaviour
     public static int cheese = 0;
     public static int meat = 0;
     public static bool key = false;
-    public static int gold = 30000;
+    public static int gold = 200;
 
     public static int newIcon = 0;
     public static bool iconUpdate = false;
@@ -64,31 +71,60 @@ public class InventoryItems : MonoBehaviour
     public Image manaBar;
     public Image staminabar;
     public Image healthImage;
-    public bool[] weapons;
+    public bool[] weapons; 
+    public Text[] messages;
+    private int maxFour;
+    private GameObject miniMapView;
+    private GameObject miniMapCompass;
+    public GameObject mapScreen;
+    public GameObject mapCam;
 
     // Start is called before the first frame update
     void Start()
     {
+        optionsScreen.SetActive(false);
         inventoryMenu.SetActive(false);
         openBook.SetActive(false);
         closedBook.SetActive(true);
         potionBook.SetActive(false);
+        deedsScreen.SetActive(false);
         max = emptySlots.Length;
         maxItem = items.Length;
-        maxEmptySlot = emptySlots.Length;
+        maxEmptySlot = emptySlots.Length; 
+        maxFour = messages.Length;
+        miniMapView = GameObject.FindGameObjectWithTag("minimapItem");
+        miniMapCompass = GameObject.FindGameObjectWithTag("compass");
 
-        // Temp 
-        redMushroom = 0;
-        purpleMushroom = 0 ;
-        brownMushroom = 0 ;
-        blueFlower = 0 ;
-        redFlower = 0 ;
+        if (SaveScript.newGame == true)
+        {
+            redMushrooms = 0;
+            purpleMushrooms = 0;
+            brownMushrooms = 0;
+            blueFlowers = 0;
+            redFlowers = 0;
+            roots = 0;
+            leafDew = 0;
+            bluePotion = 0;
+            greenPotion = 0;
+            purplePotion = 0;
+            redPotion = 0;
+            bread = 0;
+            cheese = 0;
+            meat = 0;
+            gold = 200;
+            newIcon = 0;
+            iconUpdate = false;
+        }
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (SaveScript.newGame == true)
+        {
+            SaveScript.newGame = false;
+        }
         healthImage.fillAmount = SaveScript.playerHealth;
         if (iconUpdate)
         {
@@ -157,6 +193,18 @@ public class InventoryItems : MonoBehaviour
         {
             staminabar.fillAmount = Mathf.Lerp(staminabar.fillAmount,SaveScript.staminaAmt,2*Time.deltaTime);
         }
+        if(cheese == 0)
+        {
+            RemoveIcon(15);
+        }
+        if(bread == 0)
+        {
+            RemoveIcon(14);
+        }
+        if(meat == 0)
+        {
+            RemoveIcon(16);
+        }
     }
 
     public void CheckStatics()
@@ -192,7 +240,33 @@ public class InventoryItems : MonoBehaviour
         }
         maxEmptySlot = emptySlots.Length;
     }
-
+    public void UpdateMessages(string message)
+    {
+        for (int i = 0; i < maxFour; i++)
+        {
+            if (messages[i].text == "blank")
+            {
+                maxFour = i;
+                messages[i].text = message;
+            }
+        }
+        maxFour = messages.Length;
+    }
+    public void OpenOptionsScreen()
+    {
+        if (!optionsOpen)
+        {
+            optionsScreen.SetActive(true);
+            Time.timeScale = 0;
+            optionsOpen = true;
+        }
+        else if (optionsOpen)
+        {
+            optionsScreen.SetActive(false);
+            Time.timeScale = 1;
+            optionsOpen = false;
+        }
+    }
     public void OpenMenu()
     {
         inventoryMenu.SetActive(true);
@@ -201,6 +275,10 @@ public class InventoryItems : MonoBehaviour
         audioManager.PlaySFX(audioManager.bookOpenClip);
         SaveScript.theTarget = null;
         OpenInventoryScreen();
+        mapScreen.SetActive(false);
+        mapCam.SetActive(false);
+        miniMapView.SetActive(false);
+        miniMapCompass.SetActive(false);
         Time.timeScale = 0;
     }
     public void CloseMenu()
@@ -209,26 +287,57 @@ public class InventoryItems : MonoBehaviour
         openBook.SetActive(false);
         closedBook.SetActive(true);
         audioManager.PlaySFX(audioManager.bookOpenClip);
+        mapScreen.SetActive(true);
+        mapCam.SetActive(true);
+        miniMapView.SetActive(true);
+        miniMapCompass.SetActive(true);
         characterDisplay.SetActive(false);
         Time.timeScale = 1;
     }
     public void OpenInventoryScreen()
     {
         statsScreen.SetActive(false);
+        deedsScreen.SetActive(false);
         characterDisplay.SetActive(false);
+        mapScreen.SetActive(false);
+        mapCam.SetActive(false);
         inventoryScreen.SetActive(true);
     }
     public void OpenStatsScreen()
     {
         inventoryScreen.SetActive(false);
+        deedsScreen.SetActive(false);
         statsScreen.SetActive(true);
+        mapScreen.SetActive(false);
+        mapCam.SetActive(false);
         characterDisplay.SetActive(true);
         characterDisplay.GetComponent<PlayerDisplay>().ChangeDisplayArmor();
         statsScreen.GetComponent<StatsUpdate>().updateWeapons = true;
     }
+    public void OpenDeedsScreen()
+    {
+        inventoryScreen.SetActive(false);
+        statsScreen.SetActive(false);
+        mapScreen.SetActive(false);
+        mapCam.SetActive(false);
+        deedsScreen.SetActive(true);
+        characterDisplay.SetActive(false);
+        deedsScreen.GetComponent<DeedsController>().canUpdate = true;
+    }
+    public void OpenMapScreen()
+    {
+        inventoryScreen.SetActive(false);
+        statsScreen.SetActive(false);
+        deedsScreen.SetActive(false);
+        mapScreen.SetActive(true);
+        mapCam.SetActive(true);
+        characterDisplay.SetActive(false);
+    }
     public void OpenPotionBook()
     {
         potionBook.SetActive(true);
+        theCanvas.GetComponent<CreatePotion>().value = 0;
+        theCanvas.GetComponent<CreatePotion>().thisValue = 0;
     }
     public void ClosePotionBook()
     {

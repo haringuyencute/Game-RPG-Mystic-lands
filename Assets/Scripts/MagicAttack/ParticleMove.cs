@@ -84,9 +84,14 @@ public class ParticleMove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("enemy") && other.transform.gameObject != lastObj)
+        if (other.CompareTag("enemy") || other.CompareTag("spider") && other.transform.gameObject != lastObj)
         {
             other.transform.gameObject.GetComponent<EnemyMove>().enemyHealth -= damageAmt;
+            lastObj = other.transform.gameObject;
+        }
+        if (other.CompareTag("dragon") && other.transform.gameObject != lastObj)
+        {
+            other.transform.gameObject.GetComponent<DragonController>().enemyHealth -= damageAmt;
             lastObj = other.transform.gameObject;
         }
     }

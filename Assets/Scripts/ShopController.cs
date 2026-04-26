@@ -85,7 +85,7 @@ public class ShopController : MonoBehaviour
         inventoryItems[2] = InventoryItems.bluePotion;
         inventoryItems[3] = InventoryItems.greenPotion;
         inventoryItems[4] = InventoryItems.dragonEgg;
-        inventoryItems[5] = InventoryItems.root;
+        inventoryItems[5] = InventoryItems.roots;
         inventoryItems[6] = InventoryItems.leafDew;
     }
 
@@ -137,7 +137,7 @@ public class ShopController : MonoBehaviour
         }
         if (item == 5)
         {
-            InventoryItems.root++;
+            InventoryItems.roots++;
         }
         if (item == 6)
         {
